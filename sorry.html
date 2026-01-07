@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>I’m Sorry STUTHIIIIII ❤️</title>
+<title>I’m Sorry ❤️</title>
 
 <style>
 * {
@@ -13,53 +13,68 @@
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(145deg, #ff9a9e, #fad0c4);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
     overflow: hidden;
+    background: #000;
+}
+
+/* Soft background image */
+.background {
+    position: fixed;
+    inset: 0;
+    background: url("bg.jpg") center / cover no-repeat;
+    filter: brightness(0.6) blur(1px);
+    z-index: -2;
+}
+
+/* Overlay to reduce highlight */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 200, 210, 0.35);
+    z-index: -1;
 }
 
 /* Card */
 .card {
-    background: white;
+    background: rgba(255, 255, 255, 0.92);
     padding: 26px 22px;
     border-radius: 22px;
     width: 90%;
     max-width: 380px;
-    box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+    text-align: center;
+    box-shadow: 0 18px 35px rgba(0,0,0,0.35);
     animation: pop 0.6s ease;
 }
 
 @keyframes pop {
-    from { transform: scale(0.85); opacity: 0; }
+    from { transform: scale(0.9); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
 
 h1 {
     color: #ff4d6d;
     font-size: 26px;
-    margin-bottom: 14px;
 }
 
 p {
     font-size: 15.5px;
-    color: #444;
     line-height: 1.6;
+    color: #444;
 }
 
 /* Buttons */
 button {
     width: 100%;
     padding: 14px;
+    margin-top: 14px;
     border-radius: 30px;
     border: none;
     font-size: 16px;
     font-weight: 600;
-    cursor: pointer;
-    margin-top: 14px;
 }
 
 #forgive {
@@ -67,56 +82,54 @@ button {
     color: white;
 }
 
-/* Angry button */
+/* Calm angry button */
 #angry {
-    background: #ddd;
     position: fixed;
-    bottom: 30px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
     max-width: 280px;
+    background: #eee;
+    transition: transform 0.35s ease;
 }
 
 .hidden {
     display: none;
 }
 
-/* Floating hearts */
-.heart {
+/* Flower animation */
+.flower {
     position: fixed;
-    font-size: 18px;
-    animation: floatUp 3s linear forwards;
+    font-size: 22px;
+    animation: floatUp 5s linear forwards;
 }
 
 @keyframes floatUp {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(-120px);
-        opacity: 0;
-    }
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-160px); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Apology Card -->
+<div class="background"></div>
+<div class="overlay"></div>
+
+<!-- AUDIO -->
+<audio id="sorryMusic" src="sorry.mp3" loop></audio>
+<audio id="thankMusic" src="thankyou.mp3" loop></audio>
+
+<!-- APOLOGY CARD -->
 <div class="card" id="mainCard">
     <h1>Hey STEWIE ❤️</h1>
     <p>
-        I know I didn't talk to you properly today,  
-        couldn’t give you enough time,  
-        made you wait the whole day  
-        and ended up acting immature and making you cry 😔<br><br>
+        I know I didn’t talk to you properly today.  
+        I made you wait and acted immature 😔<br><br>
 
-        I never meant to hurt you.<br><br>
-
-        I promise I won’t repeat this mistake again.  
-        I’m not a women hater and no girl is a hypocrite for being a man hater.<br><br>
+        I never meant to hurt you.  
+        You matter to me more than you know.<br><br>
 
         Please forgive your idiot 🥺
     </p>
@@ -124,58 +137,59 @@ button {
     <button id="forgive" onclick="forgiveMe()">I Forgive You 💕</button>
 </div>
 
-<!-- Angry Button -->
-<button id="angry" ontouchstart="moveButton()" onmouseover="moveButton()">
-    I’m Still Angry 😤
+<button id="angry" ontouchstart="moveButton()" onclick="moveButton()">
+I’m Still Angry 😤
 </button>
 
-<!-- Final Card -->
+<!-- THANK YOU CARD -->
 <div class="card hidden" id="forgivenCard">
-    <h1>Thank You 🥹❤️</h1>
+    <h1>Thank You 🥹🌸</h1>
     <p>
-        I promise to do better.<br>
-        No more hurting you.<br><br>
-        Thank you for giving me another chance 🫶
+        I promise to be better.<br>
+        Softer. Kinder. More present.<br><br>
+        Thank you for staying 🫶
     </p>
 </div>
 
 <script>
+const sorryMusic = document.getElementById("sorryMusic");
+const thankMusic = document.getElementById("thankMusic");
+
+document.body.addEventListener("click", () => {
+    if (sorryMusic.paused) sorryMusic.play();
+}, { once: true });
+
+let moveCount = 0;
 function moveButton() {
     const btn = document.getElementById("angry");
-
-    const maxX = window.innerWidth - btn.offsetWidth - 20;
-    const maxY = window.innerHeight - btn.offsetHeight - 20;
-
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
-
-    createHeart();
+    moveCount++;
+    btn.style.transform = moveCount % 2
+        ? "translate(-50%, -60px)"
+        : "translate(-50%, 0)";
 }
 
 function forgiveMe() {
     document.getElementById("mainCard").classList.add("hidden");
     document.getElementById("angry").classList.add("hidden");
     document.getElementById("forgivenCard").classList.remove("hidden");
-    heartRain();
+
+    sorryMusic.pause();
+    thankMusic.play();
+
+    flowerRain();
 }
 
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerText = "💖";
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.bottom = "20px";
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 3000);
-}
-
-function heartRain() {
-    for (let i = 0; i < 18; i++) {
-        setTimeout(createHeart, i * 150);
+function flowerRain() {
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+            const f = document.createElement("div");
+            f.className = "flower";
+            f.innerText = "🌸";
+            f.style.left = Math.random() * window.innerWidth + "px";
+            f.style.bottom = "20px";
+            document.body.appendChild(f);
+            setTimeout(() => f.remove(), 5000);
+        }, i * 200);
     }
 }
 </script>
