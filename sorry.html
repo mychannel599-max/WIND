@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I’m Sorry STUTHIIIIII ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(145deg, #ff9a9e, #fad0c4);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Card */
+.card {
+    background: white;
+    padding: 26px 22px;
+    border-radius: 22px;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+    animation: pop 0.6s ease;
+}
+
+@keyframes pop {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+h1 {
+    color: #ff4d6d;
+    font-size: 26px;
+    margin-bottom: 14px;
+}
+
+p {
+    font-size: 15.5px;
+    color: #444;
+    line-height: 1.6;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 14px;
+}
+
+#forgive {
+    background: #ff4d6d;
+    color: white;
+}
+
+/* Angry button */
+#angry {
+    background: #ddd;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 280px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    font-size: 18px;
+    animation: floatUp 3s linear forwards;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-120px);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Apology Card -->
+<div class="card" id="mainCard">
+    <h1>Hey STEWIE ❤️</h1>
+    <p>
+        I know I didn't talk to you properly today,  
+        couldn’t give you enough time,  
+        made you wait the whole day  
+        and ended up acting immature and making you cry 😔<br><br>
+
+        I never meant to hurt you.<br><br>
+
+        I promise I won’t repeat this mistake again.  
+        I’m not a women hater and no girl is a hypocrite for being a man hater.<br><br>
+
+        Please forgive your idiot 🥺
+    </p>
+
+    <button id="forgive" onclick="forgiveMe()">I Forgive You 💕</button>
+</div>
+
+<!-- Angry Button -->
+<button id="angry" ontouchstart="moveButton()" onmouseover="moveButton()">
+    I’m Still Angry 😤
+</button>
+
+<!-- Final Card -->
+<div class="card hidden" id="forgivenCard">
+    <h1>Thank You 🥹❤️</h1>
+    <p>
+        I promise to do better.<br>
+        No more hurting you.<br><br>
+        Thank you for giving me another chance 🫶
+    </p>
+</div>
+
+<script>
+function moveButton() {
+    const btn = document.getElementById("angry");
+
+    const maxX = window.innerWidth - btn.offsetWidth - 20;
+    const maxY = window.innerHeight - btn.offsetHeight - 20;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+
+    createHeart();
+}
+
+function forgiveMe() {
+    document.getElementById("mainCard").classList.add("hidden");
+    document.getElementById("angry").classList.add("hidden");
+    document.getElementById("forgivenCard").classList.remove("hidden");
+    heartRain();
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.bottom = "20px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 3000);
+}
+
+function heartRain() {
+    for (let i = 0; i < 18; i++) {
+        setTimeout(createHeart, i * 150);
+    }
+}
+</script>
+
+</body>
+</html>
